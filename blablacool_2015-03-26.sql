@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.6.21)
 # Database: blablacool
-# Generation Time: 2015-03-24 22:07:21 +0000
+# Generation Time: 2015-03-26 16:54:06 +0000
 # ************************************************************
 
 
@@ -76,7 +76,7 @@ CREATE TABLE `role` (
   `id_role` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(42) NOT NULL,
   PRIMARY KEY (`id_role`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
@@ -137,6 +137,10 @@ CREATE TABLE `trip` (
   `id_trip` int(11) NOT NULL AUTO_INCREMENT,
   `driver_id` int(11) NOT NULL,
   `capacity` tinyint(10) NOT NULL,
+  `smoking` tinyint(1) DEFAULT '1',
+  `animals` tinyint(1) DEFAULT '1',
+  `luggage` varchar(50) DEFAULT NULL,
+  `price` decimal(6,2) NOT NULL,
   PRIMARY KEY (`id_trip`,`driver_id`),
   KEY `fk_trip_user1_idx` (`driver_id`),
   CONSTRAINT `fk_trip_user1` FOREIGN KEY (`driver_id`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -179,6 +183,15 @@ CREATE TABLE `user` (
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+
+INSERT INTO `user` (`id_user`, `firstname`, `lastname`, `nickname`, `email`, `password`, `age`)
+VALUES
+	(1,'Valentin','Polo','VP42','me@valentinpolo.fr','$2a$10$LHbvTOQ7TO88H0lFQeYFQu5jsykEiljCHoC9Nq/E9ANNzWVz3qYXq',NULL);
+
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table user_has_roles
@@ -196,6 +209,15 @@ CREATE TABLE `user_has_roles` (
   CONSTRAINT `fk_user_has_roles_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `user_has_roles` WRITE;
+/*!40000 ALTER TABLE `user_has_roles` DISABLE KEYS */;
+
+INSERT INTO `user_has_roles` (`user_id`, `role_id`)
+VALUES
+	(1,2);
+
+/*!40000 ALTER TABLE `user_has_roles` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
