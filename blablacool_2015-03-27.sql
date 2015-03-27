@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.6.21)
 # Database: blablacool
-# Generation Time: 2015-03-26 16:54:06 +0000
+# Generation Time: 2015-03-27 08:32:39 +0000
 # ************************************************************
 
 
@@ -33,6 +33,7 @@ CREATE TABLE `car` (
   `brand` varchar(100) DEFAULT NULL,
   `model` varchar(100) DEFAULT NULL,
   `capacity` tinyint(10) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_car`,`owner_id`),
   KEY `fk_car_user1_idx` (`owner_id`),
   CONSTRAINT `fk_car_user1` FOREIGN KEY (`owner_id`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -178,6 +179,12 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `password` varchar(200) NOT NULL,
   `age` tinyint(100) unsigned DEFAULT NULL,
+  `phone_number` varchar(20) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `city` varchar(180) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `postcode` varchar(10) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `nickname_UNIQUE` (`nickname`),
   UNIQUE KEY `email_UNIQUE` (`email`)
@@ -186,9 +193,9 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 
-INSERT INTO `user` (`id_user`, `firstname`, `lastname`, `nickname`, `email`, `password`, `age`)
+INSERT INTO `user` (`id_user`, `firstname`, `lastname`, `nickname`, `email`, `password`, `age`, `phone_number`, `address`, `city`, `state`, `postcode`, `country`)
 VALUES
-	(1,'Valentin','Polo','VP42','me@valentinpolo.fr','$2a$10$LHbvTOQ7TO88H0lFQeYFQu5jsykEiljCHoC9Nq/E9ANNzWVz3qYXq',NULL);
+	(1,'Valentin','Polo','VP42','me@valentinpolo.fr','$2a$10$2fXmZ3aVjZJ8ROue2dwewuvux6p4GuJcHMrXycrple3c75ZtoMnG6',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -218,6 +225,28 @@ VALUES
 
 /*!40000 ALTER TABLE `user_has_roles` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# Dump of table user_preference
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `user_preference`;
+
+CREATE TABLE `user_preference` (
+  `id_user_preference` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `like_animals` tinyint(1) DEFAULT NULL,
+  `music_style` varchar(100) DEFAULT NULL,
+  `like_smoking` tinyint(1) DEFAULT NULL,
+  `temperament` varchar(100) DEFAULT NULL,
+  `talking_level` varchar(150) DEFAULT NULL,
+  `driving_style` varchar(150) DEFAULT NULL,
+  `others` mediumtext,
+  PRIMARY KEY (`id_user_preference`,`user_id`),
+  KEY `fk_user_preference_user1_idx` (`user_id`),
+  CONSTRAINT `fk_user_preference_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 
