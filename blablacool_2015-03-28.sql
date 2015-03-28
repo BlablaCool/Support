@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.6.21)
 # Database: blablacool
-# Generation Time: 2015-03-28 12:42:36 +0000
+# Generation Time: 2015-03-28 13:15:34 +0000
 # ************************************************************
 
 
@@ -123,7 +123,7 @@ DROP TABLE IF EXISTS `subscription`;
 
 CREATE TABLE `subscription` (
   `id_subscription` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
   `from` datetime NOT NULL,
   `to` datetime NOT NULL,
   `amount` decimal(10,2) NOT NULL,
