@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.6.21)
 # Database: blablacool
-# Generation Time: 2015-04-07 10:33:51 +0000
+# Generation Time: 2015-04-07 17:37:03 +0000
 # ************************************************************
 
 
@@ -123,6 +123,24 @@ VALUES
 
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# Dump of table payment
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `payment`;
+
+CREATE TABLE `payment` (
+  `id_payment` int(11) NOT NULL AUTO_INCREMENT,
+  `payment_method` varchar(100) NOT NULL,
+  `amount` decimal(8,2) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `booking_id` int(11) NOT NULL,
+  PRIMARY KEY (`id_payment`,`booking_id`),
+  KEY `fk_payment_booking1_idx` (`booking_id`),
+  CONSTRAINT `fk_payment_booking1` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 # Dump of table place
